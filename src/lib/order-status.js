@@ -1,0 +1,1 @@
+export const STATUSES = ["Placed", "Confirmed", "Packed", "Shipped", "Out for delivery", "Delivered"];
