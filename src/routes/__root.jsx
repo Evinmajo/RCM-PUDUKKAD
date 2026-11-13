@@ -9,11 +9,16 @@ import { Header, Footer } from "@/components/site";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center px-4 text-center">
-      <div>
-        <h1 className="font-display text-7xl">404</h1>
-        <p className="mt-2 text-muted-foreground">This page doesn't exist.</p>
-        <Link to="/" className="mt-6 inline-block rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground">Go home</Link>
+    <div className="flex min-h-[60dvh] w-full items-center justify-center px-4 py-12 text-center">
+      <div className="max-w-md">
+        <h1 className="font-display text-5xl sm:text-7xl">404</h1>
+        <p className="mt-2 text-sm text-muted-foreground sm:text-base">This page doesn't exist.</p>
+        <Link 
+          to="/" 
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          Go home
+        </Link>
       </div>
     </div>
   );
@@ -23,10 +28,15 @@ function ErrorComponent({ error, reset }) {
   const router = useRouter();
   useEffect(() => { reportLovableError(error, { boundary: "tanstack_root_error_component" }); }, [error]);
   return (
-    <div className="flex min-h-[60vh] items-center justify-center text-center">
-      <div>
-        <h1 className="text-xl font-semibold">This page didn't load</h1>
-        <button onClick={() => { router.invalidate(); reset(); }} className="mt-4 rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground">Try again</button>
+    <div className="flex min-h-[60dvh] w-full items-center justify-center px-4 py-12 text-center">
+      <div className="max-w-md">
+        <h1 className="text-lg font-semibold sm:text-xl">This page didn't load</h1>
+        <button 
+          onClick={() => { router.invalidate(); reset(); }} 
+          className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          Try again
+        </button>
       </div>
     </div>
   );
@@ -55,9 +65,9 @@ export const Route = createRootRouteWithContext()({
 
 function RootShell({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <body className="flex min-h-dvh flex-col overflow-x-hidden antialiased">{children}<Scripts /></body>
     </html>
   );
 }
@@ -68,7 +78,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ShopProvider>
         <Header />
-        <main className="min-h-[60vh]"><Outlet /></main>
+        <main className="w-full flex-1"><Outlet /></main>
         <Footer />
         <Toaster position="top-center" richColors />
       </ShopProvider>
