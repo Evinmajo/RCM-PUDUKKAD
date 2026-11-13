@@ -35,6 +35,10 @@ function Detail() {
   const related = products.filter((x) => x.category === p.category && x.id !== p.id).slice(0, 4);
   const stockLabel = p.stock === 0 ? "Out of stock" : p.stock <= 5 ? `Only ${p.stock} left` : "In stock";
 
+  // If user is approved (showNrp is true), show real nrp and mrp. Otherwise, make nrp equal to mrp.
+  const displayNrp = p.showNrp ? p.nrp : p.mrp;
+  const displayMrp = p.mrp;
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <Link to="/products" search={{ category: p.category }} className="text-sm text-muted-foreground">← {categoryName(p.category)}</Link>
@@ -51,7 +55,10 @@ function Detail() {
         </div>
         <div>
           <h1 className="font-display text-4xl">{p.name}</h1>
-          <p className="mt-4 text-2xl font-semibold"><span className="text-sm font-normal">NRP </span>{inr(p.nrp)} <s className="text-base font-normal text-muted-foreground">MRP {inr(p.mrp)}</s></p>
+          <p className="mt-4 text-2xl font-semibold">
+            <span className="text-sm font-normal">NRP </span>{inr(displayNrp)}{" "}
+            <s className="text-base font-normal text-muted-foreground">MRP {inr(displayMrp)}</s>
+          </p>
           <p className={`mt-2 text-sm font-medium ${p.stock === 0 ? "text-destructive" : "text-primary"}`}>{stockLabel}</p>
           <p className="mt-6 leading-relaxed text-muted-foreground">{p.description}</p>
           {p.stock > 0 && (
